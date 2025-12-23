@@ -1,0 +1,13 @@
+### 1. Test Tạo Mã Giảm Giá (Shop)
+POST http://localhost:5000/api/shop/coupon/add
+Content-Type: application/json
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5M2QxM2JiNWJhNjc1MzA5OTIyZDRjNiIsInJvbGUiOiJzaG9wX293bmVyIiwiaWF0IjoxNzY1NjEwNDI3fQ.ZTMGlaDLGtBdmWtO-0sI31V0I-MGv9pEfiRIG9kAQPE
+
+{
+  "code": "WEBSTORM_TEST",
+  "discountType": "fixed",
+  "discountValue": 15000,
+  "minOrderValue": 50000,
+  "expiryDate": "2025-12-31",
+  "usageLimit": 100
+}

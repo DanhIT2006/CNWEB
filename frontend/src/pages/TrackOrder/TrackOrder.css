@@ -1,0 +1,34 @@
+.track-order-page {
+    width: 100%;
+    margin: 50px auto;
+    font-family: Arial, sans-serif;
+    color: #444;
+}
+
+.track-header { margin-bottom: 20px; text-align: center; }
+.track-header h2 { font-size: 28px; color: tomato; margin-bottom: 10px; }
+.track-header p { font-size: 16px; color: #2fbf24; margin-bottom: 10px; font-family: 'Times New Roman', Times, serif; }
+.status-badge {
+    display: inline-block; padding: 5px 15px; background-color: #e8f0fe;
+    color: #1a73e8; border-radius: 20px; font-weight: bold; margin-top: 10px;
+}
+
+.map-container-large {
+    border: 3px solid tomato; border-radius: 15px;
+    overflow: hidden; margin-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.track-actions { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.track-actions p { font-size: 16px; color: #2fbf24 ; margin-bottom: 10px; }
+.confirm-btn {
+    background-color: tomato; color: white; padding: 15px 40px;
+    border: none; border-radius: 50px; font-size: 18px; font-weight: bold;
+    cursor: pointer; transition: 0.3s;
+}
+.confirm-btn:hover { background-color: #ff4c4c; transform: scale(1.05); }
+
+/* Dark Mode Support */
+.lightcolors .track-order-page { color: #333; }
+:root .track-order-page { color: #eee; }
+:root .status-badge { background-color: #333; color: tomato; }

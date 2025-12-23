@@ -1,0 +1,105 @@
+
+.profile-page {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.profile-page h2 {
+    font-size: 2.2em;
+    color: #ff6347; /* Màu chủ đạo */
+    margin-bottom: 25px;
+    border-bottom: 2px solid #ff6347;
+    padding-bottom: 10px;
+}
+
+/* --- Trạng thái tải và lỗi --- */
+.profile-page.loading,
+.profile-page.error {
+    text-align: center;
+    padding: 100px 20px;
+    font-size: 1.2em;
+    color: #777;
+}
+
+/* --- Khu vực hiển thị thông tin --- */
+.profile-info-display {
+    padding: 15px 0;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.profile-info-display p {
+    font-size: 1.1em;
+}
+
+.profile-info-display strong {
+    color: #555;
+    margin-right: 10px;
+}
+
+.profile-container hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+/* --- Khu vực chỉnh sửa --- */
+.profile-edit-section h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.profile-edit-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+.profile-edit-section input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box; /* Quan trọng để padding không làm tăng chiều rộng */
+}
+
+/* --- Nút hành động --- */
+.update-button,
+.password-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.update-button {
+    background-color: #4CAF50; /* Xanh lá cho cập nhật */
+    color: white;
+}
+
+.update-button:hover {
+    background-color: #45a049;
+}
+
+.password-button {
+    background-color: #007bff; /* Xanh dương cho mật khẩu */
+    color: white;
+}
+
+.password-button:hover {
+    background-color: #0056b3;
+}

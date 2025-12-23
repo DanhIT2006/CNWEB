@@ -1,0 +1,144 @@
+/* pages/FoodDetail/FoodDetail.css */
+
+.food-detail-page {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.food-detail-container {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Left Section (Image) --- */
+.food-detail-left {
+    flex: 1;
+    min-width: 300px;
+}
+
+.food-detail-reviews {
+    flex: 1;
+}
+
+.food-detail-info {
+    flex: 1;
+    border-right: 1px solid #eee; /* Đường kẻ dọc chia 2 khu vực */
+    padding-right: 30px;
+}
+
+.detail-image {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+/* --- Right Section (Info) --- */
+.food-detail-right {
+    flex: 2;
+    padding-top: 20px;
+}
+
+.food-detail-right-content {
+    flex: 2;
+    display: flex;
+    gap: 30px;
+    padding-top: 20px;
+}
+
+.detail-name {
+    font-size: 2.5em;
+    color: #ff6347;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.detail-category {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+.detail-category span {
+    font-weight: bold;
+    color: #333;
+}
+
+.detail-price-section {
+    margin-bottom: 25px;
+}
+
+.detail-price {
+    font-size: 1.8em;
+    color: #388e3c;
+    font-weight: 500;
+}
+.detail-price span {
+    font-weight: bold;
+    color: #000;
+}
+
+.detail-description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 30px;
+    font-family: "Times New Roman", Times, serif;
+}
+.detail-description strong {
+    font-family: "Times New Roman", Times, serif;
+}
+
+/* --- Buttons and Actions --- */
+.add-to-cart-button {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+.add-to-cart-button:hover {
+    background-color: #e55336;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    color: #ff6347;
+    font-size: 1em;
+    cursor: pointer;
+    margin-bottom: 15px;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+.back-button:hover {
+    color: #e55336;
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1100px) {
+    .food-detail-right-content {
+        flex-direction: column; /* Xếp Info và Reviews thành hàng dọc */
+    }
+    .food-detail-info {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+    }
+}
+@media (max-width: 900px) {
+    .food-detail-container {
+        flex-direction: column;
+    }
+}

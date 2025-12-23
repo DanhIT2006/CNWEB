@@ -1,0 +1,51 @@
+.add-coupon {
+    width: 70%;
+    margin-left: 25px;
+    margin-top: 50px;
+    color: #6d6d6d;
+    font-size: 16px;
+}
+.add-coupon h2 {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+}
+.add-coupon p {
+    font-family: "Times New Roman", Times, serif;
+}
+.coupon-select {
+    padding: 10px;
+    border: 1px solid #a9a9a9;
+}
+.food-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto; /* Cho phép cuộn nếu nhiều món */
+    border: 1px solid #e2e2e2;
+    padding: 10px;
+}
+.food-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.food-checkbox-item:hover {
+    background-color: #f9f9f9;
+}
+.food-checkbox-item.active {
+    background-color: #e8f0fe;
+    border-color: #4a90e2;
+}
+.food-checkbox-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
