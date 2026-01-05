@@ -7,7 +7,7 @@ const couponSchema = new mongoose.Schema({
     shopId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'shop',
-        default: null  // Mặc định là null (Admin), nếu Shop tạo thì ghi đè ID vào
+        default: null  // Mặc định là null (Admin), nếu Shops tạo thì ghi đè ID vào
     },
 
     discountType: { type: String, enum: ['percent', 'fixed'], required: true }, // Loại: phần trăm (%) hoặc số tiền cố định (VND)

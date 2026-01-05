@@ -1,0 +1,68 @@
+.admin-list h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #131313;
+}
+
+.list-table {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.list-table-format {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr 1fr 1fr;
+    padding: 18px 25px;
+    align-items: center;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 15px;
+}
+
+.list-table-format.title {
+    background-color: #fafafa;
+    color: #131313;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+.list-table-format.title b {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+}
+
+.status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    width: fit-content;
+}
+
+.status.pending { background: #fff8e1; color: #f39c12; }
+.status.approved { background: #e8f5e9; color: #27ae60; }
+.status.rejected { background: #ffebee; color: #e74c3c; }
+
+.btns {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-v, .btn-x {
+    padding: 7px 14px;
+    border-radius: 6px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-v { background-color: #27ae60; color: white; }
+.btn-v:hover { background-color: #219150; transform: translateY(-1px); }
+
+.btn-x { background-color: #f4f4f4; color: #666; }
+.btn-x:hover { background-color: #e74c3c; color: white; }

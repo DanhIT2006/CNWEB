@@ -1,0 +1,31 @@
+.navbar-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4%;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.logo-admin {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ff4c24; /* Màu cam thương hiệu */
+}
+
+.logo-admin span {
+  color: #555;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.admin-content {
+  display: flex;
+  flex: 1;
+}
+
+.main-view {
+  flex: 1;
+  padding: 30px 40px;
+}

@@ -13,10 +13,9 @@ const foodSchema = new mongoose.Schema({
         required: true
     },
 
-    // THÊM TRƯỜNG NÀY: Để biết món này thuộc Shop nào
     shopId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'shop', // Tham chiếu đến shopModel
+        ref: 'shop',
         required: true
     }
 });

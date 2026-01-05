@@ -29,6 +29,10 @@ const Sidebar = () => {
                 <img className='stats' src={assets.stats_icon} alt="" />
                 <p>{t('stats')}</p>
             </NavLink>
+            <NavLink to='/comments' className="sidebar-option">
+                <img className='comments' src={assets.stats_icon} alt="" />
+                <p>{t('comments_of_customer')}</p>
+            </NavLink>
         </div>
     </div>
   )

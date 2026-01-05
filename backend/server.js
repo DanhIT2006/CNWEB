@@ -10,6 +10,7 @@ import orderRouter from "./routes/orderRoute.js"
 import commentRouter from "./routes/commentRoute.js";
 import shopRouter from "./routes/shopRoute.js";
 import couponRouter from "./routes/couponRoute.js";
+import adminRouter from "./routes/adminRoute.js";
 
 // app config
 const app = express()
@@ -31,6 +32,8 @@ app.use("/api/order",orderRouter)
 app.use("/api/comment", commentRouter);
 app.use("/api/shop", shopRouter);
 app.use("/api/coupon", couponRouter);
+app.use("/api/admin", adminRouter);
+
 
 
 

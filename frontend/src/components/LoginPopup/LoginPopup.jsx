@@ -24,36 +24,54 @@ const LoginPopup = ({setShowLogin}) => {
   }
 
   const onLogin = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     let newUrl = url;
     if (currState === "Login") {
-      newUrl += "/api/user/login"
+      newUrl += "/api/user/login";
     } else {
-      newUrl += "/api/user/register"
+      newUrl += "/api/user/register";
     }
 
     try {
       const response = await axios.post(newUrl, data);
-      console.log("Phản hồi:", response.data);
+      console.log("Phản hồi từ backend:", response.data);
 
       if (response.data.success) {
-        setToken(response.data.token);
-        localStorage.setItem("token", response.data.token);
-        setShowLogin(false);
+        // LƯU Ý QUAN TRỌNG: Nếu là Shop Owner đang Đăng ký
+        if (currState === "Sign Up" && data.role === "shop_owner") {
+          // Backend lúc này KHÔNG gửi token về
+          alert("Yêu cầu đã gửi! Vui lòng chờ Admin phê duyệt trước khi đăng nhập.");
+          setShowLogin(false); // Đóng popup, người dùng vẫn ở trang chủ
+          return; // Chặn các bước lưu token phía dưới
+        }
 
-        // Kiểm tra role để chuyển hướng
-        const payload = decodeJWT(response.data.token);
-        if (payload && payload.role === 'shop_owner') {
-          window.location.href = '/stats';
-        } else {
-          window.location.reload();
+        // Nếu có Token (Đăng nhập thành công hoặc User thường đăng ký)
+        if (response.data.token) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          setShowLogin(false);
+
+          const payload = decodeJWT(response.data.token);
+          if (payload) {
+            if (payload.role === 'admin') {
+              const adminToken = response.data.token;
+              window.location.href = `http://localhost:3001?token=${adminToken}`;
+            } else if (payload.role === 'shop_owner') {
+              window.location.href = '/shopprofile';
+            } else if (payload.role === 'user') {
+              window.location.href = '/';
+            } else {
+              window.location.reload();
+            }
+          }
         }
       } else {
+        // Hiển thị lỗi từ Backend (ví dụ: "Tài khoản đang chờ duyệt")
         alert(response.data.message);
       }
     } catch (error) {
-      console.error("Lỗi đăng nhập:", error);
-      alert("Lỗi kết nối đến Server. Vui lòng kiểm tra lại Backend!");
+      console.error("Lỗi:", error);
+      alert("Lỗi kết nối server");
     }
   }
 

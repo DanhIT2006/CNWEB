@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
 import './FoodDetail.css';
 import CommentSection from "../../components/CommentSection/CommentSection.jsx";
+import {toast} from "react-toastify";
 
 const FoodDetail = () => {
     const { foodId } = useParams();
@@ -19,7 +20,7 @@ const FoodDetail = () => {
     // Hàm để xử lý thêm vào giỏ hàng từ trang chi tiết
     const handleAddToCart = () => {
         addToCart(foodId);
-        alert(`${foodItem.name} đã được thêm vào giỏ hàng!`);
+        toast.success(`${foodItem.name} đã được thêm vào giỏ hàng!`);
     };
 
     return (

@@ -81,7 +81,7 @@ const TrackOrder = () => {
     const [order, setOrder] = useState(null);
     const [userPos, setUserPos] = useState(null);
 
-    // Tọa độ Shop (Đà Nẵng)
+    // Tọa độ Shops (Đà Nẵng)
     const SHOP_POS = { lat: 16.061043, lng: 108.221512 };
 
     // --- HÀM TÌM TỌA ĐỘ (CÓ CHỐNG LỖI CORS) ---

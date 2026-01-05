@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-const ShopProfile = () => {
+const ShopProfile = ({setShopId}) => {
     const { url, token, decodeJWT } = useContext(StoreContext);
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -43,6 +43,8 @@ const ShopProfile = () => {
 
             if (response.data.success) {
                 setShopData(response.data.data);
+                localStorage.setItem("shopId", response.data.data._id);
+                setShopId(response.data.data._id);
             } else {
                 setError(t('error_fetch_profile'));
             }

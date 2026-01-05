@@ -27,7 +27,7 @@ const Cart = () => {
         for (const item of food_list) {
             if (cartItems[item._id] > 0) {
                 console.log("Món ăn:", item.name);
-                console.log("Dữ liệu Shop của món:", item.shopId);
+                console.log("Dữ liệu Shops của món:", item.shopId);
 
                 if (item.shopId) {
                     // Logic an toàn: Nếu shopId là object thì lấy ._id, nếu là chuỗi thì lấy luôn

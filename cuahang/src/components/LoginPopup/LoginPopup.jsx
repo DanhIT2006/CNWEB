@@ -6,9 +6,9 @@ import { StoreContext } from '../../context/StoreContext'
 import axios from "axios"
 
 // eslint-disable-next-line react/prop-types
-const LoginPopup = ({setShowLogin}) => {
+const LoginPopup = ({setShowLogin, setShopId,setToken}) => {
 
-  const {url,setToken, decodeJWT} = useContext(StoreContext)
+  const {url, decodeJWT} = useContext(StoreContext)
 
 
   const [currState,setCurrState] = useState("Login")
@@ -27,41 +27,56 @@ const LoginPopup = ({setShowLogin}) => {
 
 
   const onLogin = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     let newUrl = url;
-    if (currState==="Login"){
-      newUrl += "/api/user/login"
+    if (currState === "Login") {
+      newUrl += "/api/user/login";
+    } else {
+      newUrl += "/api/user/register";
     }
-    else{
-      newUrl += "/api/user/register"
-    }
 
-    const response = await axios.post(newUrl,data);
-    console.log("Phản hồi từ backend:", response.data);
+    try {
+      const response = await axios.post(newUrl, data);
+      console.log("Phản hồi từ backend:", response.data);
 
-    if (response.data.success){
-      setToken(response.data.token);
-      localStorage.setItem("token",response.data.token)
-      setShowLogin(false)
+      if (response.data.success) {
+        if (currState === "Sign Up" && data.role === "shop_owner") {
+          // Backend lúc này KHÔNG gửi token về
+          alert("Yêu cầu đã gửi! Vui lòng chờ Admin phê duyệt trước khi đăng nhập.");
+          setShowLogin(false);
+          return;
+        }
 
-      const payload = decodeJWT(response.data.token);
+        if (response.data.token) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
 
-      if (payload) {
-        if (payload.role === 'user') {
-          // CHUYỂN HƯỚNG user đến cổng/đường dẫn quản lý riêng
-          window.location.href = '/user-dashboard';
-        } else if (payload.role === 'shop_owner') {
-          window.location.href = '/shopprofile';
+          if (response.data.shopId) {
+            localStorage.setItem("shopId", response.data.shopId);
+            setShopId(response.data.shopId);
+          }
 
-        } else {
-          window.location.reload();
+          setShowLogin(false);
+
+          const payload = decodeJWT(response.data.token);
+          if (payload) {
+            if (payload.role === 'admin') {
+              window.location.href = 'http://localhost:3001';
+            } else if (payload.role === 'shop_owner') {
+              window.location.href = '/shopprofile';
+            } else if (payload.role === 'user') {
+              window.location.href = '/';
+            } else {
+              window.location.reload();
+            }
+          }
         }
       } else {
-        window.location.reload();
+        alert(response.data.message);
       }
-    }
-    else{
-      alert(response.data.message)
+    } catch (error) {
+      console.error("Lỗi:", error);
+      alert("Lỗi kết nối server");
     }
   }
 

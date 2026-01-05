@@ -13,11 +13,17 @@ const userSchema = new mongoose.Schema(
         cartData: { type: Object, default: {} },
         role: {
             type: String,
-            enum: ['user', 'shop_owner'],
+            enum: ['user', 'shop_owner', 'admin'],
             default: 'user'
+        },
+        status: {
+            type: String,
+            enum: ['pending', 'approved', 'rejected'],
+            default: 'pending'
         }
     },
-    { minimize: false }
+    { minimize: false,
+    timestamps: true }
 );
 
 const userModel =

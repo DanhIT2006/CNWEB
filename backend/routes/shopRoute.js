@@ -22,7 +22,7 @@ shopRouter.post("/add", shopOwnerAuthMiddleware, upload.single("image"), addFood
 shopRouter.post("/remove", shopOwnerAuthMiddleware, removeFood);
 shopRouter.get("/list",shopOwnerAuthMiddleware, listShopFood);
 
-// Quản lý đơn hàng (Đơn hàng chi tiết cho Shop)
+// Quản lý đơn hàng (Đơn hàng chi tiết cho Shops)
 shopRouter.get("/orders/list", shopOwnerAuthMiddleware, listOrders);
 shopRouter.post("/orders/status", shopOwnerAuthMiddleware, updateStatus);
 

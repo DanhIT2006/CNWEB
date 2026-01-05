@@ -77,14 +77,14 @@ const resources = {
             "confirm_newpassword": "Confirm New Password",
             "enter_confirm": "Re-enter New Password",
             "save_password": "Save New Password",
-            "shop_owner": "Shop Owner",
+            "shop_owner": "Shops Owner",
             "customer": "Customer",
             //My order
             "myorder_title": "My order",
             "quantity_order": "Quantity",
             "track_order" : "Track order",
-            //Shop order
-            "shop_orders" : "Shop Orders:",
+            //Shops order
+            "shop_orders" : "Shops Orders:",
             "sl_mon": "Quantity",
             "status_processing": "Processing",
             "status_cooking": "Cooking",
@@ -196,7 +196,7 @@ const resources = {
             "myorder_title": "Đơn hàng của tôi",
             "quantity_order": "Số lượng:",
             "track_order" : "Theo dõi",
-            //Shop order
+            //Shops order
             "shop_orders" : "Đơn Hàng Của Quán",
             "sl_mon": "Số lượng:",
             "status_processing": "Đang xử lý",
