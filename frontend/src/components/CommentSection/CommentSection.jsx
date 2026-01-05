@@ -8,6 +8,9 @@ const CommentSection = ({ foodId }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
 
+    const [rating, setRating] = useState(0);
+    const [hover, setHover] = useState(0);
+
     // 1. Fetch Comments
     const fetchComments = async () => {
         try {
@@ -69,9 +72,31 @@ const CommentSection = ({ foodId }) => {
                             <p className='comment-user'><strong>{comment.userName}</strong></p>
                             <p className='comment-text'>{comment.text}</p>
                             <span className='comment-date'>{comment.createdAt}</span>
+
+                            {comment.reply && comment.reply.text && (
+                                <div className="customer-view-reply">
+                                    <p className="reply-header">
+                                        <i className="fa-solid fa-reply"></i> <b>Phản hồi từ Cửa hàng:</b>
+                                    </p>
+                                    <p className="reply-content">{comment.reply.text}</p>
+                                </div>
+                            )}
                         </div>
                     ))
                 )}
+            </div>
+            <div className="star-rating">
+                {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                        key={star}
+                        className={star <= (hover || rating) ? "on" : "off"}
+                        onClick={() => setRating(star)}
+                        onMouseEnter={() => setHover(star)}
+                        onMouseLeave={() => setHover(rating)}
+                    >
+                        <span className="star">&#9733;</span>
+                    </button>
+                ))}
             </div>
         </div>
     );

@@ -40,7 +40,7 @@ const listShopFood = async (req, res) => {
     try {
         const userId = req.user.id;
 
-        // 1. Tìm Shop của user đang đăng nhập
+        // 1. Tìm Shops của user đang đăng nhập
         const shop = await shopModel.findOne({ userId: userId });
 
         if (!shop) {

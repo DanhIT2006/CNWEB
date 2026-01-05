@@ -14,12 +14,12 @@ const Orders = () => {
   const { t } = useTranslation();
 
 
-  //Lấy ID Shop mình & Lấy danh sách đơn hàng rồi lọc
+  //Lấy ID Shops mình & Lấy danh sách đơn hàng rồi lọc
   const fetchAndFilterOrders = async () => {
     if (!token) return;
 
     try {
-      // 1. Lấy thông tin Shop hiện tại
+      // 1. Lấy thông tin Shops hiện tại
       const shopRes = await axios.get(url + "/api/shop/profile", { headers: { token } });
       if (!shopRes.data.success) return;
 
@@ -31,7 +31,7 @@ const Orders = () => {
       if (orderRes.data.success) {
         const allOrders = orderRes.data.data;
 
-        // 3. LOGIC LỌC: Chỉ giữ lại đơn hàng nào có chứa món ăn của Shop mình
+        // 3. LOGIC LỌC: Chỉ giữ lại đơn hàng nào có chứa món ăn của Shops mình
         const myOrders = allOrders.filter(order => {
           // Kiểm tra xem trong đơn hàng này, có món nào thuộc shop mình không
           const isMyOrder = order.items.some(item => {

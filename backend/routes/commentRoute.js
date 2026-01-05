@@ -1,6 +1,6 @@
 import express from "express";
-import { addComment, getCommentsByFoodId } from "../controllers/commentController.js";
-import authMiddleware from "../middleware/auth.js"; // Giả sử authMiddleware nằm ở middleware/auth.js
+import { addComment, getCommentsByFoodId,getShopComments, addReply } from "../controllers/commentController.js";
+import authMiddleware from "../middleware/auth.js";
 
 const commentRouter = express.Router();
 
@@ -9,5 +9,9 @@ commentRouter.post("/add", authMiddleware, addComment);
 
 // Route không cần đăng nhập
 commentRouter.get("/get/:foodId", getCommentsByFoodId);
+
+commentRouter.get("/shop/:shopId", getShopComments);
+
+commentRouter.post("/reply", authMiddleware, addReply);
 
 export default commentRouter;

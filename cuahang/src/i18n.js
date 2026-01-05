@@ -6,10 +6,10 @@ const resources = {
         translation: {
             //proflie
             "login": "Login",
-            "shop_info": "Shop information",
+            "shop_info": "Shops information",
             "logout": "Logout",
-            //Shop order
-            "shop_orders" : "Shop Orders",
+            //Shops order
+            "shop_orders" : "Shops Orders",
             "sl_mon": "Quantity",
             "status_processing": "Processing",
             "status_cooking": "Cooking",
@@ -65,7 +65,7 @@ const resources = {
             "toast_coupon_success": "Coupon created successfully!",
             "toast_coupon_error": "Failed to create coupon.",
             "toast_connection_error": "Connection error, please try again.",
-            //Shop Stats
+            //Shops Stats
             "business_stats_title": "Business Statistics",
             "total_weekly_revenue": "Total weekly revenue",
             "revenue_last_week": "Revenue last week",
@@ -80,23 +80,25 @@ const resources = {
             "friday_short": "Fri",
             "saturday_short": "Sat",
             "sunday_short": "Sun",
-            //Shop Profile
-            "manage_shop_info_title": "Manage Shop Information",
-            "shop_name_label": "Shop Name",
+            //Shops Profile
+            "manage_shop_info_title": "Manage Shops Information",
+            "shop_name_label": "Shops Name",
             "placeholder_shop_name": "Enter shop name",
-            "shop_address_label": "Shop Address",
+            "shop_address_label": "Shops Address",
             "placeholder_shop_address": "Enter address",
             "shop_phone_label": "Contact Phone Number",
             "placeholder_shop_phone": "Enter phone number",
-            "shop_description_label": "About the Shop",
+            "shop_description_label": "About the Shops",
             "placeholder_shop_description": "Brief description of your shop...",
-            "update_shop_info_btn": "Update Shop Information",
+            "update_shop_info_btn": "Update Shops Information",
             "loading_profile": "Loading shop profile...",
             "error_label": "Error",
             "error_no_permission": "You do not have shop management permissions!",
             "error_fetch_profile": "Could not load shop profile",
-            "toast_update_profile_success": "Shop information updated successfully!",
+            "toast_update_profile_success": "Shops information updated successfully!",
             "toast_update_profile_error": "Update failed. Please try again.",
+            //shop comment
+            "comments_of_customer": "Comment of Customer",
 
 
         }
@@ -107,7 +109,7 @@ const resources = {
             "login": "Đăng nhập",
             "shop_info": "Thông tin cửa hàng",
             "logout": "Đăng xuất",
-            //Shop order
+            //Shops order
             "shop_orders" : "Đơn Hàng Của Quán",
             "sl_mon": "Số lượng:",
             "status_processing": "Đang xử lý",
@@ -164,7 +166,7 @@ const resources = {
             "toast_coupon_success": "Tạo mã giảm giá thành công!",
             "toast_coupon_error": "Tạo mã không thành công.",
             "toast_connection_error": "Lỗi kết nối, vui lòng thử lại sau.",
-            //Shop Stats
+            //Shops Stats
             "business_stats_title": "Thống Kê Kinh Doanh",
             "total_weekly_revenue": "Tổng doanh thu tuần",
             "revenue_last_week": "Doanh thu tuần qua",
@@ -179,7 +181,7 @@ const resources = {
             "friday_short": "T6",
             "saturday_short": "T7",
             "sunday_short": "CN",
-            //Shop Profile
+            //Shops Profile
             "manage_shop_info_title": "Quản lý Thông tin Cửa hàng",
             "shop_name_label": "Tên Cửa hàng",
             "placeholder_shop_name": "Nhập tên cửa hàng",
@@ -196,6 +198,7 @@ const resources = {
             "error_fetch_profile": "Không thể tải hồ sơ cửa hàng",
             "toast_update_profile_success": "Cập nhật thông tin cửa hàng thành công!",
             "toast_update_profile_error": "Cập nhật thất bại. Vui lòng thử lại.",
+            "comments_of_customer": "Đánh giá của khách hàng",
 
 
 

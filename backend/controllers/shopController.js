@@ -1,4 +1,5 @@
 import shopModel from "../models/shopModel.js";
+import userModel from "../models/userModel.js";
 
 // Lấy hoặc tạo hồ sơ cửa hàng
 const getOrCreateShopProfile = async (req, res) => {
@@ -9,10 +10,12 @@ const getOrCreateShopProfile = async (req, res) => {
         let shopProfile = await shopModel.findOne({ userId });
 
         if (!shopProfile) {
-            // 2. Nếu chưa có, tạo hồ sơ mới với dữ liệu mặc định
+
+            const user = await userModel.findById(userId);
+
             shopProfile = new shopModel({
                 userId,
-                shopName: `Cửa hàng của ${userId.substring(0, 6)}`,
+                shopName: user ? `${user.ho} ${user.name}` : "Tên cửa hàng mới",
             });
             await shopProfile.save();
             return res.json({ success: true, message: "Tạo hồ sơ mới thành công", data: shopProfile });
@@ -27,7 +30,6 @@ const getOrCreateShopProfile = async (req, res) => {
     }
 };
 
-//(Cập nhật hồ sơ)
 const updateShopProfile = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -41,7 +43,6 @@ const updateShopProfile = async (req, res) => {
         );
 
         if (!updatedShop) {
-            // Nếu không tìm thấy hồ sơ
             return res.json({ success: false, message: "Không tìm thấy hồ sơ cửa hàng để cập nhật" });
         }
 

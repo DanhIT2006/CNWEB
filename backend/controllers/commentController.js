@@ -1,5 +1,6 @@
 import commentModel from "../models/commentModel.js";
 import userModel from "../models/userModel.js";
+import foodModel from "../models/foodModel.js";
 
 // @route   POST /api/comment/add
 // @desc    Thêm bình luận mới (Cần token để lấy userId)
@@ -50,4 +51,47 @@ const getCommentsByFoodId = async (req, res) => {
     }
 }
 
-export { addComment, getCommentsByFoodId };
+const getShopComments = async (req, res) => {
+    try {
+        const { shopId } = req.params;
+        console.log("Đang tìm bình luận cho Shop ID:", shopId);
+        // 1. Tìm tất cả món ăn của shop
+        const foods = await foodModel.find({ shopId });
+        console.log("Danh sách món ăn tìm thấy:", foods.length);
+        const foodIds = foods.map(food => food._id);
+
+        // 2. Lấy bình luận thuộc danh sách món ăn đó
+        const comments = await commentModel.find({ foodId: { $in: foodIds } })
+            .populate('userId', 'name ho')
+            .populate('foodId', 'name image')
+            .sort({ createdAt: -1 });
+        console.log("Số lượng bình luận tìm thấy:", comments.length);
+
+        res.json({ success: true, data: comments });
+    } catch (error) {
+        res.json({ success: false, message: "Lỗi lấy dữ liệu" });
+    }
+};
+const addReply = async (req, res) => {
+    try {
+        const {commentId, replyText} = req.body;
+        const updatedComment = await commentModel.findByIdAndUpdate(
+            commentId,
+            {
+                reply: {
+                    text: replyText,
+                    createdAt: new Date(),
+                }
+            },
+            { new: true }
+        );
+        if (!updatedComment) {
+            return res.json({success: false, message: "Không tìm thấy bình luận"});
+        }
+        res.json({success: true, message: "Phản hồi thành công", data: updatedComment});
+    } catch (error) {
+        res.json({success: false, message: "Lỗi Server" });
+    }
+}
+
+export { addComment, getCommentsByFoodId, getShopComments, addReply };
