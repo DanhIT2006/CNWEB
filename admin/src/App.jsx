@@ -12,12 +12,10 @@ const App = () => {
     const url = "http://localhost:5000";
 
     useEffect(() => {
-        // 1. Kiểm tra xem URL có chứa token không (ví dụ: ?token=abc...)
         const urlParams = new URLSearchParams(window.location.search);
         const tokenFromUrl = urlParams.get('token');
 
         if (tokenFromUrl) {
-            // 2. Nếu có, lưu ngay vào LocalStorage của port 3001
             localStorage.setItem("token", tokenFromUrl);
             // 3. Xóa token trên URL để giao diện trông sạch sẽ
             window.history.replaceState({}, document.title, "/shops");
