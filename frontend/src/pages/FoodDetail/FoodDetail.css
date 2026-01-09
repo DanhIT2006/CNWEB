@@ -10,34 +10,37 @@
 
 .food-detail-container {
     display: flex;
+    flex-wrap: wrap ;
     gap: 40px;
     padding: 20px;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* --- Left Section (Image) --- */
 .food-detail-left {
     flex: 1;
-    min-width: 300px;
+    min-width: 350px;
 }
 
 .food-detail-reviews {
     flex: 1;
+    max-height: 450px;
+    overflow: hidden;
 }
 
 .food-detail-info {
-    flex: 1;
-    border-right: 1px solid #eee; /* Đường kẻ dọc chia 2 khu vực */
-    padding-right: 30px;
+    border-right: 1px solid #eee;
+    padding-right: 20px;
 }
 
 .detail-image {
     width: 100%;
-    height: auto;
-    border-radius: 6px;
+    height: 400px;
+    border-radius: 10px;
     object-fit: cover;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* --- Right Section (Info) --- */
@@ -48,8 +51,10 @@
 
 .food-detail-right-content {
     flex: 2;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
+    min-width: 350px;
     padding-top: 20px;
 }
 
@@ -59,6 +64,7 @@
     margin-bottom: 10px;
     border-bottom: 2px solid #eee;
     padding-bottom: 10px;
+    font-family: "Times New Roman", Times, serif;
 }
 
 .detail-category {
@@ -95,6 +101,15 @@
 .detail-description strong {
     font-family: "Times New Roman", Times, serif;
 }
+.detail-shop-address {
+    line-height: 1.5;
+    padding: 10px;
+    background-color: #fff4f2;
+    border-left: 4px solid #ff6347;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow-wrap: break-word;
+}
 
 /* --- Buttons and Actions --- */
 .add-to-cart-button {
@@ -127,9 +142,9 @@
 
 
 /* --- Responsive Adjustments --- */
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
     .food-detail-right-content {
-        flex-direction: column; /* Xếp Info và Reviews thành hàng dọc */
+        grid-template-columns: 1fr;
     }
     .food-detail-info {
         border-right: none;
@@ -137,8 +152,15 @@
         padding-bottom: 20px;
     }
 }
-@media (max-width: 900px) {
+
+@media (max-width: 768px) {
     .food-detail-container {
         flex-direction: column;
+    }
+    .food-detail-left {
+        min-width: 100%;
+    }
+    .detail-image {
+        height: 250px;
     }
 }

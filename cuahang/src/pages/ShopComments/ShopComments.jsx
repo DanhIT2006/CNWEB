@@ -24,8 +24,13 @@ const ShopComments = ({ url, shopId }) => {
 
     const handleReply = async (commentId) => {
         if (!token) {
-            toast.error("Vui lòng đăng nhập!!!");
-            return;
+            return (
+                <div className='shop-comments-auth-error'>
+                    <h2 style={{color: '#ff4c24', textAlign: 'center', marginTop: '50px'}}>
+                        Vui lòng đăng nhập tài khoản Cửa hàng để xem và phản hồi bình luận!
+                    </h2>
+                </div>
+            );
         }
         try {
             const response = await axios.post(`${url}/api/comment/reply`,
@@ -34,8 +39,8 @@ const ShopComments = ({ url, shopId }) => {
                 );
             if (response.data.success) {
                 toast.success("Đã gửi phản hồi");
-                setReplyTexts(prev =>({...prev, [commentId]: ""})); // Xóa sau khi gửi
-                fetchComments();// tải lại danh sách để hiển thị phản hồi mới
+                setReplyTexts(prev =>({...prev, [commentId]: ""}));
+                fetchComments();
             }
         } catch (error) {
             toast.error("Lỗi gửi phản hồi");
@@ -44,8 +49,10 @@ const ShopComments = ({ url, shopId }) => {
 
 
     useEffect(() => {
-        if (shopId) fetchComments();
-    }, [shopId]);
+        if (shopId && token) {
+            fetchComments();
+        }
+    }, [shopId, token]);
 
     // Hàm hiển thị số sao
     const renderStars = (rating) => {
@@ -69,13 +76,25 @@ const ShopComments = ({ url, shopId }) => {
                             <div className="comment-rating">{renderStars(item.rating)}</div>
                         </div>
                         <p className="comment-content">&quot;{item.text}&quot;</p>
-                        <p className="comment-date">{new Date(item.createdAt).toLocaleDateString('vi-VN')}</p>
 
-                        {item.reply && item.reply.text && (
-                            <div className="shop-reply">
-                                <p><strong>Cửa hàng phản hồi:</strong> {item.reply.text}</p>
+                        {item.image && (
+                            <div className="customer-comment-img">
+                                <img src={`${url}/images/${item.image}`} alt="Ảnh khách chụp" />
                             </div>
                         )}
+
+                        <p className="comment-date">{new Date(item.createdAt).toLocaleDateString('vi-VN')}</p>
+
+                        <div className="replies-container">
+                            {item.replies && item.replies.map((rep, idx) => (
+                                <div key={idx} className={`reply-item ${rep.senderRole === 'shop_owner' ? 'shop-style' : 'user-style'}`}>
+                                    <p>
+                                        <strong>{rep.senderName} {rep.senderRole === 'shop_owner' ? '(Cửa hàng)' : ''}:</strong>
+                                        {rep.text}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
 
                         <div className="reply-input-group">
                             <input

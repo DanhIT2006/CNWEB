@@ -6,7 +6,7 @@
 }
 
 .track-header { margin-bottom: 20px; text-align: center; }
-.track-header h2 { font-size: 28px; color: tomato; margin-bottom: 10px; }
+.track-header h2 { font-size: 28px; color: tomato; margin-bottom: 10px; font-family: "Times New Roman", serif; }
 .track-header p { font-size: 16px; color: #2fbf24; margin-bottom: 10px; font-family: 'Times New Roman', Times, serif; }
 .status-badge {
     display: inline-block; padding: 5px 15px; background-color: #e8f0fe;

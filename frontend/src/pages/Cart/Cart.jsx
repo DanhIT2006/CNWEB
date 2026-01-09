@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './Cart.css'
 import { StoreContext } from '../../context/StoreContext'
 import { useNavigate } from 'react-router-dom'
@@ -11,16 +11,94 @@ import {assets} from "../../assets/assets.js";
 
 const Cart = () => {
 
+    const getCoordinates = async (address) => {
+        try {
+            const response = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`);
+            if (response.data.length > 0) {
+                return {
+                    lat: parseFloat(response.data[0].lat),
+                    lng: parseFloat(response.data[0].lon)
+                };
+            }
+        } catch (error) {
+            console.error("Lỗi lấy tọa độ:", error);
+        }
+        return null;
+    };
+
+    const calculateDistance = (lat1, lon1, lat2, lon2) => {
+        const R = 6371; // bán kính của trái
+        // đổi độ sang Radiant
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        //Công thức Harversine
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        // tính góc ở tâm giữa hai điểm
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    };
+
+    const { cartItems, food_list, removeFromCart, addToCart, getTotalCartAmount, url, token,userData } = useContext(StoreContext)
+
+    const [deliveryFee, setDeliveryFee] = useState(20000);
+    const [distance, setDistance] = useState(0);
+    const [promoCode, setPromoCode] = useState("");
+    const [discount, setDiscount] = useState(0);
     const [paymentMethod, setPaymentMethod] = useState("cod");
 
-    const { cartItems, food_list, removeFromCart, addToCart, getTotalCartAmount, url } = useContext(StoreContext)
+    const updateShippingFee = async () => {
+        if (getTotalCartAmount() === 0) {
+            setDeliveryFee(0);
+            setDistance(0);
+            return;
+        }
+
+        // Tìm shop trong giỏ hàng
+        const currentItem = food_list.find(item => cartItems[item._id] > 0);
+        const shopAddress = currentItem?.shopId?.address;
+
+        let userAddress = "";
+        if (userData && userData.tenDuong) {
+            userAddress = `${userData.tenDuong}, ${userData.phuongXa}, ${userData.tinh}, Việt Nam`;
+        } else {
+            console.log("Đang đợi dữ liệu người dùng...");
+            return;
+        }
+
+        console.log("--- DEBUG ĐỊA CHỈ ---");
+        console.log("Shop gửi đi:", shopAddress);
+        console.log("Khách gửi đi:", userAddress);
+
+        if (shopAddress && userAddress) {
+            const shopCoords = await getCoordinates(shopAddress);
+            const userCoords = await getCoordinates(userAddress);
+
+            if (shopCoords && userCoords) {
+                console.log("Tọa độ Shop:", shopCoords);
+                console.log("Tọa độ Khách:", userCoords);
+                const d = calculateDistance(shopCoords.lat, shopCoords.lng, userCoords.lat, userCoords.lng);
+                setDistance(d);
+
+                // Quy tắc: 5.000đ/km, tối thiểu 15.000đ
+                const fee = Math.max(15000, Math.round(d * 5000));
+                setDeliveryFee(fee);
+            }
+        }
+    };
+
+    useEffect(() => {
+        updateShippingFee();
+    }, [cartItems, userData]);
+
+    const subTotal = getTotalCartAmount();
+    const finalTotal = subTotal + deliveryFee - discount;
+
 
     const navigate = useNavigate();
 
     const { t } = useTranslation();
-
-    const [promoCode, setPromoCode] = useState("");
-    const [discount, setDiscount] = useState(0);
 
     const handleApplyPromo = async () => {
         let currentShopId = null;
@@ -44,7 +122,9 @@ const Cart = () => {
                 code: promoCode,
                 cartAmount: getTotalCartAmount(),
                 shopIdOfCart: currentShopId
-            });
+            },
+                {headers: {token}}
+                );
 
             if (response.data.success) {
                 setDiscount(response.data.discountAmount);
@@ -58,11 +138,6 @@ const Cart = () => {
             toast.error("Lỗi khi kiểm tra mã");
         }
     }
-
-    // Tính tổng cuối cùng
-    const subTotal = getTotalCartAmount();
-    const deliveryFee = subTotal === 0 ? 0 : 20000;
-    const finalTotal = subTotal + deliveryFee - discount;
 
     return (
         <div className='cart'>
@@ -85,17 +160,14 @@ const Cart = () => {
                                     <img src={url+"/images/"+item.image} alt="" />
                                     <p>{item.name}</p>
 
-                                    {/* Sửa lại: Hiển thị giá của TỪNG món, không phải tổng giỏ hàng */}
                                     <p>{formatPrice(item.price)}</p>
-
-                                    {/* 2. Thay đổi phần hiển thị số lượng thành bộ điều khiển */}
                                     <div className='quantity-control'>
                                         <button onClick={()=>removeFromCart(item._id)}  style={{color: "red", cursor: "pointer"}}>-</button>
                                         <p>{cartItems[item._id]}</p>
                                         <button onClick={()=>addToCart(item._id)}  style={{color: "green", cursor: "pointer"}} >+</button>
                                     </div>
 
-                                    <p>{formatPrice(getTotalCartAmount() + (getTotalCartAmount() === 0 ? 0 : 20000))}</p>
+                                    <p>{formatPrice(item.price * cartItems[item._id])}</p>
 
                                     <p onClick={()=>removeFromCart(item._id)} className='cross' style={{color: "red", cursor: "pointer"}}>X</p>
                                 </div>
@@ -115,8 +187,8 @@ const Cart = () => {
                         </div>
                         <hr/>
                         <div className="cart-total-details">
-                            <p>{t('delivery_fee')}</p>
-                            <p>{formatPrice(getTotalCartAmount() === 0 ? 0 : 20000)}</p>
+                            <p>{t('delivery_fee')} ({distance.toFixed(1)} km)</p>
+                            <p>{formatPrice(deliveryFee)}</p>
                         </div>
                         <hr/>
                         {/* HIỂN THỊ GIẢM GIÁ NẾU CÓ */}

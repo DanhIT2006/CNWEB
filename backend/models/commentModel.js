@@ -27,8 +27,17 @@ const commentSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
-});
+    },
+    image: { type: String, default: "" },
+    replies: [
+        {
+            senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+            senderName: { type: String },
+            text: { type: String },
+            createdAt: { type: Date, default: Date.now }
+        }
+    ]
+},{timestamps:true});
 
 // Kiểm tra xem model 'comment' đã tồn tại chưa
 const commentModel = mongoose.models.comment || mongoose.model("comment", commentSchema);

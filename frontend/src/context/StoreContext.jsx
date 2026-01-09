@@ -28,6 +28,18 @@ const StoreContextProvider = (props) => {
     const url = "http://localhost:5000"
     const [token,setToken] = useState("")
     const [food_list,setFoodList] = useState([])
+    const [userData, setUserData] = useState(null);
+
+    const fetchUserData = async (token) => {
+        try {
+            const response = await axios.get(url + "/api/user/profile", { headers: { token } });
+            if (response.data.success) {
+                setUserData(response.data.data);
+            }
+        } catch (error) {
+            console.error("Lỗi lấy profile:", error);
+        }
+    }
 
 
     const addToCart = async (itemId) => {
@@ -81,16 +93,18 @@ const StoreContextProvider = (props) => {
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
         async function loadData() {
             await fetchFoodList();
-            if (localStorage.getItem("token")) {
-                setToken(localStorage.getItem("token"));
-                await loadCartData(localStorage.getItem("token"));
+            const storedToken = localStorage.getItem("token");
+            if (storedToken) {
+                setToken(storedToken);
+                await loadCartData(storedToken);
+                await fetchUserData(storedToken);
             }
         }
         loadData();
-    },[])
+    }, [])
 
 
     const contextValue = {
@@ -103,6 +117,7 @@ const StoreContextProvider = (props) => {
         url,
         token,
         setToken,
+        userData,
         decodeJWT
     }
 

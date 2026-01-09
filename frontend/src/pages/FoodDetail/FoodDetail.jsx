@@ -4,11 +4,14 @@ import { StoreContext } from '../../context/StoreContext';
 import './FoodDetail.css';
 import CommentSection from "../../components/CommentSection/CommentSection.jsx";
 import {toast} from "react-toastify";
+import { useTranslation } from 'react-i18next';
 
-const FoodDetail = () => {
+const FoodDetail = ({shopAddress}) => {
     const { foodId } = useParams();
     const { food_list, url, addToCart } = useContext(StoreContext);
     const navigate = useNavigate();
+
+    const { t } = useTranslation();
 
     // Tìm món ăn trong food_list
     const foodItem = food_list.find(item => item._id === foodId);
@@ -48,13 +51,19 @@ const FoodDetail = () => {
                                 Cửa hàng: <span style={{fontWeight: 'bold', color: '#ff6347'}}>{foodItem.shopId.shopName}</span>
                             </p>
                         )}
-                        <p className='detail-category'>Danh mục: <span>{foodItem.category}</span></p>
+                        <p className='detail-category'>Danh mục: <span>{t(foodItem.category)}</span></p>
                         <div className='detail-price-section'>
                             <p className='detail-price'>Giá: <span>{foodItem.price.toLocaleString('vi-VN')}₫</span></p>
                         </div>
                         <p className='detail-description'>
                             <strong>Mô tả chi tiết:</strong> {foodItem.description}
                         </p>
+                        {foodItem.shopId && (
+                            <p className='detail-shop-address' style={{ marginTop: '10px', fontSize: '1em', color: '#555' }}>
+                                <strong style={{ color: '#333' }}>Địa chỉ cửa hàng: </strong>
+                                {foodItem.shopId.address}
+                            </p>
+                        )}
                         <button onClick={handleAddToCart} className='add-to-cart-button'>
                             Thêm vào Giỏ hàng
                         </button>
