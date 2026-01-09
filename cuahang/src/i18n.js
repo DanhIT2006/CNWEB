@@ -99,6 +99,7 @@ const resources = {
             "toast_update_profile_error": "Update failed. Please try again.",
             //shop comment
             "comments_of_customer": "Comment of Customer",
+            //info
 
 
         }
