@@ -28,6 +28,7 @@ const shopSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+
 });
 
 const shopModel = mongoose.models.shop || mongoose.model("shop", shopSchema);

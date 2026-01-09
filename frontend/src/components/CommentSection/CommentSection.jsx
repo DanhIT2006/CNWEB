@@ -1,45 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import { StoreContext } from '../../context/StoreContext';
+import React, { useContext, useEffect, useState } from 'react';
 import './CommentSection.css';
+import { StoreContext } from '../../context/StoreContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { assets } from '../../assets/assets';
 
 const CommentSection = ({ foodId }) => {
     const { url, token } = useContext(StoreContext);
     const [comments, setComments] = useState([]);
-    const [newComment, setNewComment] = useState('');
+    const [text, setText] = useState("");
+    const [rating, setRating] = useState(5);
+    const [image, setImage] = useState(false);
 
-    const [rating, setRating] = useState(0);
-    const [hover, setHover] = useState(0);
-
-    // 1. Fetch Comments
+    // lấy danh sách bình luận
     const fetchComments = async () => {
-        try {
-            const response = await axios.get(`${url}/api/comment/get/${foodId}`);
+        const response = await axios.get(`${url}/api/comment/list/${foodId}`);
+        if (response.data.success) {
             setComments(response.data.data);
-        } catch (error) {
-            console.error("Lỗi khi fetch bình luận:", error);
-        }
-    };
-
-    // 2. Submit Comment
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!token) {
-            alert("Vui lòng đăng nhập để bình luận.");
-            return;
-        }
-        if (newComment.trim() === '') return;
-
-        try {
-            await axios.post(`${url}/api/comment/add`,
-                { foodId, text: newComment },
-                { headers: { token } }
-            );
-            setNewComment('');
-            fetchComments();
-        } catch (error) {
-            console.error("Lỗi khi gửi bình luận:", error);
-            alert("Không thể gửi bình luận. Vui lòng thử lại.");
         }
     };
 
@@ -47,55 +24,123 @@ const CommentSection = ({ foodId }) => {
         fetchComments();
     }, [foodId]);
 
+    // Xử lý gửi bình luận
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!token) {
+            return toast.error("Vui lòng đăng nhập để bình luận");
+        }
+
+        const formData = new FormData();
+        formData.append("foodId", foodId);
+        formData.append("text", text);
+        formData.append("rating", rating);
+        if (image) formData.append("image", image);
+
+        try {
+            const response = await axios.post(`${url}/api/comment/add`, formData, { headers: { token } });
+            if (response.data.success) {
+                setText("");
+                setImage(false);
+                toast.success(`Đã đăng bình luận thành công!`);
+
+
+                fetchComments();
+            }
+        } catch (error) {
+            toast.error("Lỗi khi đăng bình luận");
+        }
+    };
+
+    const [replyToId, setReplyToId] = useState(null);
+    const [replyText, setReplyText] = useState("");
+
+    const handleSendReply = async (commentId) => {
+        if (!replyText) return toast.error("Vui lòng nhập nội dung");
+
+        try {
+            const response = await axios.post(`${url}/api/comment/reply`, {
+                commentId,
+                replyText
+            }, { headers: { token } });
+
+            if (response.data.success) {
+                toast.success("Đã gửi phản hồi" ) ;
+                setReplyToId(null);
+                fetchComments();
+            }
+        } catch (error) {
+            toast.error("Lỗi khi phản hồi");
+        }
+    };
+
     return (
         <div className='comment-section'>
-            <h3 className='comment-title'>Đánh giá ({comments.length})</h3>
+            <h3>Bình luận & Đánh giá</h3>
 
-            {/* Form gửi bình luận */}
-            <form onSubmit={handleSubmit} className='comment-form'>
-                <textarea
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Viết bình luận của bạn..."
-                    required
-                ></textarea>
-                <button type="submit">Gửi Bình luận</button>
+            {/* Form nhập bình luận */}
+            <form onSubmit={handleSubmit} className="comment-form">
+                <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="Cảm nhận của bạn..." required />
+                <div className="form-controls">
+                    <div className="upload-img">
+                        <label htmlFor="image">
+                            <img
+                                src={image ? URL.createObjectURL(image) : "https://cdn-icons-png.flaticon.com/512/126/126477.png"}
+                                alt="Chọn ảnh"
+                                style={{ width: '40px', height: '40px', objectFit: 'cover', cursor: 'pointer', border: '1px solid #ddd', borderRadius: '4px', marginRight: '30px' }}
+                            />
+                        </label>
+                        <input onChange={(e) => setImage(e.target.files[0])} type="file" id="image" hidden />
+                    </div>
+                    <select value={rating} onChange={(e) => setRating(e.target.value)}>
+                        {[5, 4, 3, 2, 1].map(num => <option key={num} value={num}>{num} Sao</option>)}
+                    </select>
+                    <button type="submit">Gửi</button>
+                </div>
             </form>
 
             {/* Danh sách bình luận */}
-            <div className='comments-list'>
-                {comments.length === 0 ? (
-                    <p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>
-                ) : (
-                    comments.map((comment, index) => (
-                        <div key={index} className='comment-item'>
-                            <p className='comment-user'><strong>{comment.userName}</strong></p>
-                            <p className='comment-text'>{comment.text}</p>
-                            <span className='comment-date'>{comment.createdAt}</span>
+            <div className="comments-list">
+                {comments.map((item, index) => (
+                    <div key={index} className="comment-item">
+                        <div className="comment-main">
+                            <b>{item.userId.name}</b> - <span>{item.rating} ⭐</span>
+                            <p>{item.text}</p>
+                            {item.image && <img className="comment-img" src={`${url}/images/${item.image}`} alt="" />}
 
-                            {comment.reply && comment.reply.text && (
-                                <div className="customer-view-reply">
-                                    <p className="reply-header">
-                                        <i className="fa-solid fa-reply"></i> <b>Phản hồi từ Cửa hàng:</b>
-                                    </p>
-                                    <p className="reply-content">{comment.reply.text}</p>
-                                </div>
-                            )}
+                            <button
+                                className="reply-btn"
+                                onClick={() => {
+                                    setReplyToId(item._id);
+                                    setReplyText("");
+                                }}
+                            >
+                                Trả lời
+                            </button>
                         </div>
-                    ))
-                )}
-            </div>
-            <div className="star-rating">
-                {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                        key={star}
-                        className={star <= (hover || rating) ? "on" : "off"}
-                        onClick={() => setRating(star)}
-                        onMouseEnter={() => setHover(star)}
-                        onMouseLeave={() => setHover(rating)}
-                    >
-                        <span className="star">&#9733;</span>
-                    </button>
+
+                        {replyToId === item._id && (
+                            <div className="reply-input-box">
+                                <input
+                                    value={replyText}
+                                    onChange={(e) => setReplyText(e.target.value)}
+                                    placeholder="Nhập phản hồi của bạn..."
+                                />
+                                <button onClick={() => handleSendReply(item._id)}>Gửi</button>
+                                <button onClick={() => setReplyToId(null)}>Hủy</button>
+                            </div>
+                        )}
+
+                        {/* Hiển thị danh sách Phản hồi (Replies) */}
+                        {item.replies && item.replies.map((rep, idx) => (
+                            <div key={idx} className={`comment-reply ${rep.senderRole === 'shop_owner' ? 'shop-style' : 'user-style'}`}>
+                                <b style={{ color: rep.senderRole === 'shop_owner' ? '#ff6347' : '#333' }}>
+                                    {rep.senderName} {rep.senderRole === 'shop_owner' ? '(Cửa hàng)' : ''}:
+                                </b>
+                                <p>{rep.text}</p>
+                            </div>
+                        ))}
+                    </div>
                 ))}
             </div>
         </div>

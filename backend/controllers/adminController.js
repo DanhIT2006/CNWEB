@@ -37,7 +37,7 @@ const updateShopStatus = async (req, res) => {
 };
 
 const updateUserStatus = async (req, res) => {
-    const { userId, status } = req.body; // status truyền lên có thể là 'approved' hoặc 'blocked'
+    const { userId, status } = req.body;
     try {
         // Cập nhật trường status trong userModel
         await userModel.findByIdAndUpdate(userId, { status });
@@ -51,11 +51,15 @@ const updateUserStatus = async (req, res) => {
 const getDashboardStats = async (req, res) => {
     try {
         const totalUsers = await userModel.countDocuments({ role: 'user' });
-        const totalShops = await shopModel.countDocuments({});
+        const totalShops = await userModel.countDocuments({role: 'shop_owner'});
 
-        const pending = await shopModel.countDocuments({ status: 'pending' });
-        const approved = await shopModel.countDocuments({ status: 'approved' });
-        const rejected = await shopModel.countDocuments({ status: 'rejected' });
+        const pending = await userModel.countDocuments({
+            role: 'shop_owner',
+            $or: [{ status: 'pending' }, { status: { $exists: false } }]
+        });
+
+        const approved = await userModel.countDocuments({ role: 'shop_owner', status: 'approved' });
+        const rejected = await userModel.countDocuments({ role: 'shop_owner', status: 'rejected' });
 
         const pieData = [
             { name: 'Khách hàng', value: totalUsers },

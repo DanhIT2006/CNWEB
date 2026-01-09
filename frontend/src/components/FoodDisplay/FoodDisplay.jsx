@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react' // Thêm useState
+import React, { useContext, useState } from 'react'
 import './FoodDisplay.css'
 import { StoreContext } from '../../context/StoreContext'
 import FoodItem from '../FoodItem/FoodItem'

@@ -36,7 +36,13 @@
     font-size: 13px;
     color: #131313;
 }
-
+.customer-comment-img img {
+    max-width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
 .comment-rating {
     margin-left: auto;
     color: #ffb800;
@@ -123,4 +129,26 @@
 
 .reply-input-group button:hover {
     background-color: #e04420;
+}
+.replies-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.reply-item {
+    background-color: #f9f9f9;
+    border-left: 4px solid #ff4c24;
+    margin-left: 20px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.shop-style {
+    background-color: #fff4f2;
+}
+
+.user-style {
+    background-color: #ff4c24;
+    border-left-color: #131313;
 }

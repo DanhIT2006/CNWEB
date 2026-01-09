@@ -46,7 +46,7 @@ const StoreContextProvider = (props) => {
         setCartItems((prev) => {
             const newCart = { ...prev };
             if (newCart[itemId] <= 1) {
-                delete newCart[itemId];        // xóa luôn key
+                delete newCart[itemId];
             } else {
                 newCart[itemId] -= 1;
             }
