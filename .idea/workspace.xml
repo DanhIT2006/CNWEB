@@ -1,29 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="e92fbf4e-18b2-4f3a-a80c-40cd7336e7c8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DACS2.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/pages/Shops/Shops.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/pages/Shops/Shops.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/adminController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/adminController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/commentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/commentController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/commentModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/commentModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/shopModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/shopModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/commentRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/commentRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cuahang/src/pages/ShopComments/ShopComments.css" beforeDir="false" afterPath="$PROJECT_DIR$/cuahang/src/pages/ShopComments/ShopComments.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cuahang/src/pages/ShopComments/ShopComments.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/cuahang/src/pages/ShopComments/ShopComments.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/CommentSection/CommentSection.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/CommentSection/CommentSection.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/CommentSection/CommentSection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/CommentSection/CommentSection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/context/StoreContext.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/context/StoreContext.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Cart/Cart.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Cart/Cart.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/FoodDetail/FoodDetail.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/FoodDetail/FoodDetail.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/FoodDetail/FoodDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/FoodDetail/FoodDetail.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/TrackOrder/TrackOrder.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/TrackOrder/TrackOrder.css" afterDir="false" />
-    </list>
+    <list default="true" id="e92fbf4e-18b2-4f3a-a80c-40cd7336e7c8" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,15 +22,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Danh&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Danh",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.Khachhang.executor": "Run",
+    "npm.admin.executor": "Run",
+    "npm.backend.executor": "Run",
+    "npm.cuahang.executor": "Run",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Compound.Run">
     <configuration name="Run" type="CompoundRunConfigurationType">
       <toRun name="Khachhang" type="js.build_tools.npm" />
@@ -122,7 +111,7 @@
       <option name="presentableId" value="Default" />
       <updated>1767926546363</updated>
       <workItem from="1767926547504" duration="28000" />
-      <workItem from="1767927508304" duration="252000" />
+      <workItem from="1767927508304" duration="1106000" />
     </task>
     <servers />
   </component>
