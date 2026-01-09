@@ -17,9 +17,7 @@ const App = () => {
 
         if (tokenFromUrl) {
             localStorage.setItem("token", tokenFromUrl);
-            // 3. Xóa token trên URL để giao diện trông sạch sẽ
             window.history.replaceState({}, document.title, "/shops");
-            // 4. Load lại trang để các component nhận token mới
             window.location.reload();
         }
     }, []);

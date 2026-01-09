@@ -1,0 +1,27 @@
+Index: admin/src/App.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useEffect } from \"react\";\nimport { Routes, Route } from \"react-router-dom\";\nimport Sidebar from \"./components/Sidebar/Sidebar\";\nimport Shops from \"./pages/Shops/Shops\";\nimport { ToastContainer } from \"react-toastify\";\nimport \"react-toastify/dist/ReactToastify.css\";\nimport \"./App.css\";\nimport Users from \"./pages/Users/Users\";\nimport Dashboard from \"./pages/Dashboard/Dashboard\";\n\nconst App = () => {\n    const url = \"http://localhost:5000\";\n\n    useEffect(() => {\n        // 1. Kiểm tra xem URL có chứa token không (ví dụ: ?token=abc...)\n        const urlParams = new URLSearchParams(window.location.search);\n        const tokenFromUrl = urlParams.get('token');\n\n        if (tokenFromUrl) {\n            // 2. Nếu có, lưu ngay vào LocalStorage của port 3001\n            localStorage.setItem(\"token\", tokenFromUrl);\n            // 3. Xóa token trên URL để giao diện trông sạch sẽ\n            window.history.replaceState({}, document.title, \"/shops\");\n            // 4. Load lại trang để các component nhận token mới\n            window.location.reload();\n        }\n    }, []);\n    const token = localStorage.getItem(\"token\");\n\n    return (\n        <div className=\"app-admin\">\n            <ToastContainer />\n            <div className=\"navbar-admin\">\n                <h2 className=\"logo\">FOOD-ONLINE <span>Quản Trị Viên</span></h2>\n            </div>\n            <hr />\n            <div className=\"admin-content\" style={{display: \"flex\"}}>\n                <Sidebar />\n                <div className=\"main-view\" style={{flex: 1, padding: \"20px\"}}>\n                    <Routes>\n                        <Route path=\"/shops\" element={<Shops url={url} token={token} />} />\n                        <Route path=\"/users\" element={<Users url={url} token={token} />} />\n                        <Route path=\"/stats\" element={<Dashboard url={url} token={token} />} />\n                    </Routes>\n                </div>\n            </div>\n        </div>\n    );\n};\nexport default App;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/admin/src/App.jsx b/admin/src/App.jsx
+--- a/admin/src/App.jsx	(revision 8b30cc05b3525301e742c73e6b06966169604281)
++++ b/admin/src/App.jsx	(date 1767931851966)
+@@ -12,16 +12,12 @@
+     const url = "http://localhost:5000";
+ 
+     useEffect(() => {
+-        // 1. Kiểm tra xem URL có chứa token không (ví dụ: ?token=abc...)
+         const urlParams = new URLSearchParams(window.location.search);
+         const tokenFromUrl = urlParams.get('token');
+ 
+         if (tokenFromUrl) {
+-            // 2. Nếu có, lưu ngay vào LocalStorage của port 3001
+             localStorage.setItem("token", tokenFromUrl);
+-            // 3. Xóa token trên URL để giao diện trông sạch sẽ
+             window.history.replaceState({}, document.title, "/shops");
+-            // 4. Load lại trang để các component nhận token mới
+             window.location.reload();
+         }
+     }, []);
